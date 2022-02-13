@@ -212,6 +212,10 @@ public class FieldValueResolver extends MemberValueResolver<FieldWrapper> {
   protected Object invokeMember(final FieldWrapper field, final Object context) {
     try {
       return field.get(context);
+    } catch (IllegalAccessException ex) {
+      System.err.println("Illegal access to field '" + field.getName() +
+        "'. Returning null instead.");
+      return null;
     } catch (Exception ex) {
       throw new IllegalStateException(
           "Shouldn't be illegal to access field '" + field.getName()
